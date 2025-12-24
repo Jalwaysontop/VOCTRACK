@@ -79,3 +79,41 @@ VOCTRACK/
 │   └── logo.png
 │
 └── uploads/                    # Uploaded audio files
+```
+⚙️ Installation & Setup
+1️⃣ Clone repository
+git clone https://github.com/your-username/voctrack.git
+cd voctrack
+
+2️⃣ Install dependencies
+pip install -r requirements.txt
+
+3️⃣ Train the model
+
+Run the notebook:
+
+training/model.ipynb
+
+
+This will generate:
+
+models/svm_model.pkl
+
+▶️ Run the Web Application
+python app.py
+
+
+Open browser:
+
+http://127.0.0.1:5000
+
+
+Upload a .wav, .flac, or .mp3 file to get:
+
+Prediction: Bonafide / Spoof
+
+Confidence score (%)
+
+🧪 Example Output
+Result: Spoof (Deepfake)
+Confidence: 98.74%
