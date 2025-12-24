@@ -19,10 +19,21 @@ The system is trained on the **ASVspoof 2019 Logical Access (LA)** dataset and d
 ## 🧠 Technical Overview
 
 ### 🔹 Dataset
-- **ASVspoof 2019 – Logical Access (LA)**
-- Binary classification:
-  - `Bonafide` → Real human voice
-  - `Spoof` → AI-generated / cloned voice
+This project uses the ASVspoof 2019 Logical Access (LA) dataset, a widely accepted benchmark for evaluating voice anti-spoofing and deepfake audio detection systems.
+The dataset contains:
+  Bonafide (genuine human speech)
+  Spoofed speech generated using text-to-speech (TTS) and voice conversion (VC) techniques
+Each audio sample is provided in .flac format along with protocol files that specify:
+  Speaker identity
+  Audio file ID
+  Ground-truth label (bonafide or spoof)
+The dataset is organized into predefined splits:
+
+Training set – used for model learning
+Development set – used for validation and performance evaluation
+Evaluation set – reserved for benchmark testing
+
+ASVspoof 2019 LA focuses on logical access attacks, where adversaries attempt to bypass voice authentication systems using synthetic or cloned audio, making it highly relevant for financial security and biometric authentication applications.
 
 ### 🔹 Feature Engineering
 - Audio resampled to **16 kHz**
