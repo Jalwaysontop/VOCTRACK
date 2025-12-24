@@ -82,7 +82,7 @@ VOCTRACK/
 ```
 ⚙️ Installation & Setup
 1️⃣ Clone repository
-git clone https://github.com/your-username/voctrack.git
+git clone https://github.com/Jalwaysontop/VOCTRACK.git
 cd voctrack
 
 2️⃣ Install dependencies
