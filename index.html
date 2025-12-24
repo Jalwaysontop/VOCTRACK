@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voctrack – Deepfake Audio Detection</title>
+
+    <style>
+        .tagline {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1b5e20;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+        body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: linear-gradient(135deg, #ffe045, #17ffb5);
+}
+
+        .card {
+            background: white;
+            width: 440px;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .logo {
+            width: 260px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #77edc8, #2ecc71);
+            border: none;
+            color: white;
+            padding: 12px 32px;
+            font-size: 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 16px;
+            border-radius: 12px;
+            background: #f6f9fc;
+            font-size: 18px;
+        }
+
+        .real {
+            color: #2ecc71;
+        }
+
+        .fake {
+            color: #e74c3c;
+        }
+
+        .confidence {
+            font-size: 14px;
+            color: #444;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 class="tagline">
+    A contribution by JUICY toward a more secure cyber future
+</h2>
+
+
+<div class="card">
+
+    <!-- LOGO -->
+    <img src="{{ url_for('static', filename='voctrack_logo.png') }}"
+         alt="Voctrack Logo"
+         class="logo">
+
+    <p>Upload an audio file to detect deepfake voice</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="audio" accept=".wav,.mp3" required><br>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if result %}
+        <div class="result-box">
+            Result:
+            <span class="{{ 'fake' if result == 'FAKE' else 'real' }}">
+                {{ result }}
+            </span>
+            <div class="confidence">
+                Confidence: {{ confidence }}%
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
