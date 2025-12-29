@@ -21,7 +21,12 @@ ALLOWED_EXTENSIONS = {"wav", "flac", "mp3"}
 # --------------------
 # Load trained model
 # --------------------
-svm_pipeline = joblib.load(MODEL_PATH)
+try:
+    svm_pipeline = joblib.load(MODEL_PATH)
+except Exception as e:
+    print("Model loading failed:", e)
+    svm_pipeline = None
+
 
 # --------------------
 # Utility functions
@@ -46,6 +51,9 @@ def predict_audio(audio_path):
         return "Error processing audio", 0.0
 
     feat = feat.reshape(1, -1)
+    if svm_pipeline is None:
+        return "Model not loaded", 0.0
+
 
     probs = svm_pipeline.predict_proba(feat)[0]
     pred_class = np.argmax(probs)
@@ -101,4 +109,7 @@ def index():
 # Run app
 # --------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
+
