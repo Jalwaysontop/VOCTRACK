@@ -10,6 +10,8 @@ from werkzeug.utils import secure_filename
 # Flask setup
 # --------------------
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024 #limit 5MB
+
 
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "models" / "svm_model.pkl"
@@ -37,7 +39,7 @@ def allowed_file(filename):
 
 def extract_mfcc(audio_path, sr=16000, n_mfcc=13):
     try:
-        audio, sr = librosa.load(audio_path, sr=sr)
+        audio, sr = librosa.load(audio_path, sr=16000, mono=True, duration=5.0)
         mfcc = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
         return np.concatenate([mfcc.mean(axis=1), mfcc.std(axis=1)])
     except Exception as e:
@@ -111,5 +113,6 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
